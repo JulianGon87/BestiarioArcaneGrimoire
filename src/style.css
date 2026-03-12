@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Almendra:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #f5e6ca; /* Sepia light / Parchment */
+  --color-secondary: #3e2723; /* Dark Leather / Chocolate */
+  --color-accent: #d4af37; /* Mystic Gold */
+  --color-accent-purple: #9b59b6; /* Arcane Purple */
+  --color-parchment-dark: #e6d2b5;
+
+  --font-display: "MedievalSharp", cursive;
+  --font-body: "Almendra", serif;
+
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-in: slide-in 0.5s ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-in {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-900 text-secondary font-body min-h-screen overflow-hidden;
+    background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-secondary;
+  }
+}
+
+@layer utilities {
+  .text-shadow-gold {
+    text-shadow: 1px 1px 2px rgba(212, 175, 55, 0.5);
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
