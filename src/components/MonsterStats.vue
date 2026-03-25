@@ -20,10 +20,17 @@
             <div class="text-lg font-display text-stone-900">10 (+0)</div>
          </div>
      </div>
+     
+     <div class="mt-8 pt-4 border-t border-stone-800/10">
+       <h4 class="font-display text-center text-lg text-secondary mb-2">Representación Visual de Potencia</h4>
+       <MonsterStatsChart />
+     </div>
   </div>
 </template>
 
 <script setup>
+import MonsterStatsChart from './MonsterStatsChart.vue'
+
 defineProps({
   monster: {
     type: Object,

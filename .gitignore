@@ -12,6 +12,18 @@ dist
 dist-ssr
 *.local
 
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Testing
+coverage/
+*.spec.js.snap
+
+# Vite cache
+.vite/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -25,3 +37,4 @@ dist-ssr
 
 # Documentation
 TODO.md
+ORBITAL_COMPARISON.md

@@ -1,19 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BookLayout from '../layouts/BookLayout.vue'
-import DashboardView from '../views/DashboardView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',
-            component: BookLayout,
+            component: () => import('../layouts/BookLayout.vue'),
             redirect: '/dashboard',
             children: [
                 {
                     path: 'dashboard',
                     name: 'dashboard',
-                    component: DashboardView
+                    component: () => import('../views/DashboardView.vue')
                 },
                 {
                     path: 'bestiario',
@@ -22,7 +20,6 @@ const router = createRouter({
                 },
                 {
                     path: 'bestiario/:id',
-                    name: 'monster-detail',
                     component: () => import('../views/MonsterDetail.vue'),
                     props: true,
                     children: [
@@ -37,6 +34,11 @@ const router = createRouter({
                             component: () => import('../components/MonsterLore.vue')
                         }
                     ]
+                },
+                {
+                    path: '/:pathMatch(.*)*',
+                    name: 'NotFound',
+                    component: () => import('../views/LostInTheDungeon.vue')
                 }
             ]
         }

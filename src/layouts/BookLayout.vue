@@ -74,11 +74,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, provide } from 'vue'
 import { version } from '../../package.json'
 
 const isSidebarOpen = ref(true)
 const appVersion = ref(version)
+
+provide('campaignContext', {
+  name: 'La Mina Perdida de Phandelver',
+  level: 3
+})
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value

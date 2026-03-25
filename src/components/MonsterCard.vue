@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-parchment-light rounded-lg p-4 shadow-md border border-secondary/20 hover:shadow-xl hover:border-accent hover:-translate-y-1 transition-all duration-300 h-full flex flex-col group relative overflow-hidden">
+  <div v-glow class="relative bg-primary border-2 border-secondary/30 rounded shadow-md font-body p-3 transition-all hover:-translate-y-1 hover:shadow-xl group overflow-hidden">
     
     <!-- Card Content -->
     <div class="relative z-10 flex flex-col h-full">
       <!-- Image Area -->
-      <router-link :to="{ name: 'monster-detail', params: { id: monster.id } }" class="w-full h-40 rounded mb-4 overflow-hidden border border-secondary/30 bg-secondary/5 relative group-hover:sepia-[.3] transition-all block">
+      <router-link :to="{ name: 'monster-stats', params: { id: monster.id } }" class="w-full h-40 rounded mb-4 overflow-hidden border border-secondary/30 bg-secondary/5 relative group-hover:sepia-[.3] transition-all block">
         <img 
           :src="monster.image" 
           :alt="monster.name" 
@@ -16,7 +16,7 @@
   
       <!-- Header -->
       <div class="mb-2">
-        <router-link :to="{ name: 'monster-detail', params: { id: monster.id } }" class="block w-fit">
+        <router-link :to="{ name: 'monster-stats', params: { id: monster.id } }" class="block w-fit">
           <h3 class="text-xl font-display text-secondary leading-tight mb-1 hover:text-accent-dark group-hover:text-accent-dark transition-colors">{{ monster.name }}</h3>
         </router-link>
         <TypeBadge :type="monster.type" />
@@ -26,7 +26,7 @@
       <p class="text-sm text-secondary/80 italic mb-4 line-clamp-2">{{ monster.description }}</p>
   
       <!-- Stats Footer -->
-      <div class="grid grid-cols-3 gap-2 mt-auto pt-4 border-t border-secondary/20 text-center font-bold text-secondary text-sm">
+      <div class="grid grid-cols-3 gap-2 mt-auto pt-4 border-t border-secondary/20 text-center font-bold text-secondary text-sm relative">
         <div class="flex flex-col items-center" title="Puntos de Golpe">
           <font-awesome-icon :icon="['fas', 'heart']" class="text-red-700/70 mb-1" />
           <span>{{ monster.hp }} HP</span>
@@ -39,6 +39,15 @@
           <font-awesome-icon :icon="['fas', 'skull']" class="text-stone-800/70 mb-1" />
           <span>CR {{ formatCR(monster.cr) }}</span>
         </div>
+        
+        <!-- Book Button -->
+        <button 
+          @click.stop="$emit('open-grimoire', monster)"
+          class="absolute -top-12 right-2 bg-secondary text-parchment-light w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-accent hover:text-secondary hover:-translate-y-1 transition-all border-2 border-parchment-light z-20"
+          title="Leer Grimorio"
+        >
+          <font-awesome-icon :icon="['fas', 'book']" />
+        </button>
       </div>
     </div>
 
@@ -59,6 +68,8 @@ const props = defineProps({
     required: true
   }
 })
+
+defineEmits(['open-grimoire'])
 
 const formatCR = (cr) => {
   if (cr === 0.25) return '1/4'

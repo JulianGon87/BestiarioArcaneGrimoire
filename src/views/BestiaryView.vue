@@ -15,8 +15,17 @@
     
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
       <!-- Loading Skeletons -->
-      <template v-if="loading">
+      <template v-if="isLoading">
         <MonsterSkeleton v-for="n in 6" :key="n" />
+      </template>
+
+      <!-- Mensaje de Error -->
+      <template v-else-if="isError">
+        <div class="col-span-full py-16 text-center border border-dashed border-red-900/40 rounded-lg bg-stone-900/40">
+           <i class="fas fa-exclamation-triangle text-4xl text-red-500/40 mb-4 animate-pulse"></i>
+           <h2 class="text-2xl font-display text-red-400">Falla en el conducto arcano</h2>
+           <p class="text-stone-400 mt-2">No se pudieron recuperar los monstruos desde planos exteriores.</p>
+        </div>
       </template>
 
       <!-- Mensaje cuando no hay resultados (Búsqueda fallida) -->
@@ -34,28 +43,88 @@
           v-for="monster in filteredMonsters" 
           :key="monster.id" 
           :monster="monster"
+          @open-grimoire="openModal"
         />
       </template>
     </div>
+
+    <!-- Paginación Inferior -->
+    <div v-if="!isLoading && !isError && filteredMonsters.length > 0" class="flex justify-between items-center pb-8 max-w-2xl mx-auto w-full">
+      <button 
+        @click="fetchData(currentPage - 1, searchQuery)" 
+        :disabled="!prevUrl"
+        class="px-6 py-2 bg-stone-900 text-secondary border border-secondary/30 rounded font-display hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      >
+        <i class="fas fa-chevron-left mr-2"></i> Anterior
+      </button>
+
+      <span class="text-secondary/70 font-display text-sm tracking-widest">
+        Pág. {{ currentPage }} / {{ totalPages }}
+      </span>
+
+      <button 
+        @click="fetchData(currentPage + 1, searchQuery)" 
+        :disabled="!nextUrl"
+        class="px-6 py-2 bg-stone-900 text-secondary border border-secondary/30 rounded font-display hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      >
+        Siguiente <i class="fas fa-chevron-right ml-2"></i>
+      </button>
+    </div>
+
+    <!-- Grimoire Modal -->
+    <GrimoireModal 
+      v-model:isOpen="isModalOpen" 
+      :monster="selectedMonster" 
+    />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useMonsters } from '../composables/useMonsters.js'
+import { useBestiaryStore } from '../stores/bestiaryStore.js'
 import MonsterSearch from '../components/MonsterSearch.vue'
 import MonsterFilter from '../components/MonsterFilter.vue'
 import MonsterCard from '../components/MonsterCard.vue'
 import MonsterSkeleton from '../components/MonsterSkeleton.vue'
+import GrimoireModal from '../components/GrimoireModal.vue'
 
-const { searchQuery, selectedType, filteredMonsters } = useMonsters()
-const loading = ref(true)
+const { searchQuery, selectedType, filteredMonsters, currentPage, totalPages, nextUrl, prevUrl, totalCount, setMonsters } = useMonsters()
+const store = useBestiaryStore()
+
+const isLoading = ref(true)
+const isError = ref(false)
+
+const isModalOpen = ref(false)
+const selectedMonster = ref(null)
+
+const openModal = (monster) => {
+  selectedMonster.value = monster
+  isModalOpen.value = true
+}
+
+const fetchData = async (page = 1, search = '') => {
+  try {
+    isLoading.value = true
+    isError.value = false
+    const responseData = await store.fetchMonsters(page, search)
+    setMonsters(responseData)
+    currentPage.value = page
+  } catch (error) {
+    isError.value = true
+    console.error("Error al cargar los monstruos", error)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+watch(searchQuery, (newSearch) => {
+  // Cuando el usuario busca, se reinicia la paginación a 1
+  fetchData(1, newSearch)
+})
 
 onMounted(() => {
-  // Simulate network request
-  setTimeout(() => {
-    loading.value = false
-  }, 600) // Reduced time slightly to match faster UX during filtering
+  fetchData(currentPage.value, searchQuery.value)
 })
 </script>
 
