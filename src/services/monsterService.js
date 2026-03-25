@@ -1,9 +1,12 @@
 import api from './api.js'
 
-export const getMonsters = async ({ limit = 50, page = 1, search = '' } = {}) => {
+export const getMonsters = async ({ limit = 50, page = 1, search = '', type = '' } = {}) => {
   let endpoint = `/monsters/?limit=${limit}&page=${page}`
   if (search) {
     endpoint += `&search=${encodeURIComponent(search)}`
+  }
+  if (type) {
+    endpoint += `&type=${encodeURIComponent(type)}`
   }
   return await api.get(endpoint)
 }

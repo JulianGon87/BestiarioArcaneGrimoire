@@ -51,7 +51,7 @@
     <!-- Paginación Inferior -->
     <div v-if="!isLoading && !isError && filteredMonsters.length > 0" class="flex justify-between items-center pb-8 max-w-2xl mx-auto w-full">
       <button 
-        @click="fetchData(currentPage - 1, searchQuery)" 
+        @click="fetchData(currentPage - 1, searchQuery, selectedType)" 
         :disabled="!prevUrl"
         class="px-6 py-2 bg-stone-900 text-secondary border border-secondary/30 rounded font-display hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
@@ -63,7 +63,7 @@
       </span>
 
       <button 
-        @click="fetchData(currentPage + 1, searchQuery)" 
+        @click="fetchData(currentPage + 1, searchQuery, selectedType)" 
         :disabled="!nextUrl"
         class="px-6 py-2 bg-stone-900 text-secondary border border-secondary/30 rounded font-display hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
@@ -103,11 +103,11 @@ const openModal = (monster) => {
   isModalOpen.value = true
 }
 
-const fetchData = async (page = 1, search = '') => {
+const fetchData = async (page = 1, search = '', type = '') => {
   try {
     isLoading.value = true
     isError.value = false
-    const responseData = await store.fetchMonsters(page, search)
+    const responseData = await store.fetchMonsters(page, search, type)
     setMonsters(responseData)
     currentPage.value = page
   } catch (error) {
@@ -119,8 +119,11 @@ const fetchData = async (page = 1, search = '') => {
 }
 
 watch(searchQuery, (newSearch) => {
-  // Cuando el usuario busca, se reinicia la paginación a 1
-  fetchData(1, newSearch)
+  fetchData(1, newSearch, selectedType.value)
+})
+
+watch(selectedType, (newType) => {
+  fetchData(1, searchQuery.value, newType)
 })
 
 onMounted(() => {
