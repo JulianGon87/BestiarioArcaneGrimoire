@@ -35,7 +35,7 @@ export function useMonsters() {
     const filteredMonsters = computed(() => {
         return allMonsters.value.filter(monster => {
             // El searchTerm ahora viaja al server. Filtramos localmente el tipo:
-            const matchesType = selectedType.value === '' || monster.type === selectedType.value;
+            const matchesType = selectedType.value === '' || (monster.type || '').toLowerCase().includes(selectedType.value.toLowerCase());
             return matchesType;
         });
     });
