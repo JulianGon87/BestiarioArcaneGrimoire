@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-parchment p-4 rounded border border-stone-800/10 shadow-inner my-4 text-center">
-    <h3 class="font-display text-lg text-secondary mb-2">Día de Campaña</h3>
-    <div class="text-3xl font-bold text-stone-800">{{ day }}</div>
+  <div class="bg-parchment p-4 rounded-xl border border-stone-800/10 shadow-md text-center">
+    <h3 class="font-display text-lg text-secondary mb-1 tracking-wider">Día de Campaña</h3>
+    <div class="text-4xl font-black text-stone-800 font-display drop-shadow-sm">{{ day }}</div>
   </div>
 </template>
 

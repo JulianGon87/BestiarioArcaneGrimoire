@@ -19,6 +19,11 @@ const router = createRouter({
                     component: () => import('../views/BestiaryView.vue')
                 },
                 {
+                    path: 'hechizos',
+                    name: 'hechizos',
+                    component: () => import('../views/SpellsView.vue')
+                },
+                {
                     path: 'bestiario/:id',
                     component: () => import('../views/MonsterDetail.vue'),
                     props: true,

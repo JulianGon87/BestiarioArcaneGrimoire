@@ -23,7 +23,7 @@ export function useMonsters() {
             hp: m.hit_points,
             ac: m.armor_class,
             cr: m.challenge_rating,
-            image: "https://placehold.co/400x300/1a1a1a/1a1a1a",
+            image: m.img_main || null,
             description: m.desc || "Descripción no disponible en las arcanas."
         }));
     };

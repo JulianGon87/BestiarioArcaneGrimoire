@@ -6,7 +6,7 @@
       <!-- Image Area -->
       <router-link :to="{ name: 'monster-stats', params: { id: monster.id } }" class="w-full h-40 rounded mb-4 overflow-hidden border border-secondary/30 bg-secondary/5 relative group-hover:sepia-[.3] transition-all block">
         <img 
-          :src="monster.image" 
+          :src="monsterImage" 
           :alt="monster.name" 
           class="w-full h-full object-cover"
           loading="lazy"
@@ -43,7 +43,7 @@
         <!-- Book Button -->
         <button 
           @click.stop="$emit('open-grimoire', monster)"
-          class="absolute -top-12 right-2 bg-secondary text-parchment-light w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-accent hover:text-secondary hover:-translate-y-1 transition-all border-2 border-parchment-light z-20"
+          class="absolute -top-12 right-2 bg-accent text-secondary w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-accent/40 hover:shadow-xl transition-all border-2 border-secondary/30 z-20"
           title="Leer Grimorio"
         >
           <font-awesome-icon :icon="['fas', 'book']" />
@@ -60,6 +60,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import TypeBadge from './TypeBadge.vue'
 
 const props = defineProps({
@@ -70,6 +71,31 @@ const props = defineProps({
 })
 
 defineEmits(['open-grimoire'])
+
+const monsterImage = computed(() => {
+  if (props.monster.image) return props.monster.image
+  
+  const type = (props.monster.type || '').toLowerCase()
+  let style = 'identicon' // Fallback
+  
+  if (type.includes('beast')) style = 'croodles'
+  else if (type.includes('humanoid')) style = 'adventurer'
+  else if (type.includes('construct')) style = 'bottts'
+  else if (type.includes('undead')) style = 'lorelei'
+  else if (type.includes('dragon')) style = 'shapes'
+  else if (type.includes('fiend')) style = 'notionists'
+  else if (type.includes('celestial')) style = 'micah'
+  else if (type.includes('fey')) style = 'lorelei-neutral'
+  else if (type.includes('giant')) style = 'big-ears'
+  else if (type.includes('monstrosity')) style = 'croodles-neutral'
+  else if (type.includes('ooze')) style = 'rings'
+  else if (type.includes('plant')) style = 'pixel-art'
+  else if (type.includes('aberration')) style = 'bottts-neutral'
+  else if (type.includes('elemental')) style = 'shapes'
+  
+  // Usamos el ID del monstruo como semilla para que siempre tenga el mismo avatar.
+  return `https://api.dicebear.com/9.x/${style}/svg?seed=${props.monster.id}&backgroundColor=3e2723,2d1e18`
+})
 
 const formatCR = (cr) => {
   if (cr === 0.25) return '1/4'

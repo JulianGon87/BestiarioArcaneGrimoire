@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen items-center justify-center p-4 lg:p-10">
     <!-- The Book Container -->
-    <div class="relative w-full max-w-7xl h-[85vh] flex shadow-2xl rounded-r-3xl rounded-l-lg overflow-hidden border-8 border-secondary/60 bg-secondary">
+    <div class="relative w-full max-w-[95vw] 2xl:max-w-[1600px] h-[95vh] flex shadow-2xl rounded-r-3xl rounded-l-lg overflow-hidden border-8 border-secondary/60 bg-secondary">
       
       <!-- Spine / Sidebar -->
       <aside 
@@ -44,6 +44,17 @@
                 <i class="fas fa-dragon text-xl group-hover:scale-110 transition-transform"></i>
               </div>
               <span class="text-lg tracking-wide transition-opacity duration-300" :class="{ 'opacity-0': !isSidebarOpen }">Bestiario</span>
+            </router-link>
+
+            <router-link 
+              to="/hechizos" 
+              class="flex items-center gap-4 px-3 py-3 rounded hover:bg-white/5 hover:text-accent transition-all duration-300 border border-transparent hover:border-accent/20 group overflow-hidden"
+              active-class="text-accent bg-white/10 border-accent/30 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"
+            >
+              <div class="w-8 flex justify-center shrink-0">
+                <i class="fas fa-hat-wizard text-xl group-hover:scale-110 transition-transform"></i>
+              </div>
+              <span class="text-lg tracking-wide transition-opacity duration-300" :class="{ 'opacity-0': !isSidebarOpen }">Hechizos</span>
             </router-link>
           </nav>
           

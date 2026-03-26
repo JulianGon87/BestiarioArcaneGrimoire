@@ -1,59 +1,63 @@
 <template>
-  <div class="h-full flex flex-col items-center justify-center p-4 md:p-8 animate-fade-in overflow-y-auto scrollbar-hide">
-    
-    <!-- Fila Superior: Título (Fuera del grid) -->
-    <div class="text-center w-full mb-2 md:mb-4">
-      <h1 class="text-[35px] md:text-[58px] leading-none md:leading-tight text-secondary drop-shadow-sm break-words w-full">Arcane Grimoire</h1>
+  <div class="h-full flex flex-col p-4 lg:p-8 animate-fade-in overflow-y-auto overflow-x-hidden scrollbar-hide">
+
+    <!-- Título superior compacto -->
+    <div class="text-center mb-4 xl:mb-6 flex-shrink-0">
+      <h1 class="text-4xl xl:text-5xl leading-tight text-secondary drop-shadow-sm font-display">Arcane Grimoire</h1>
     </div>
 
-    <!-- Contenido y columnas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full max-w-6xl mx-auto items-center">
-      
-      <!-- Columna Izquierda: Texto y Botón -->
-      <div class="flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-8 md:pr-4">
-        <p class="text-base md:text-2xl italic text-secondary/80 leading-relaxed text-balance">
-          "Bienvenido, viajero. Estas páginas contienen el conocimiento prohibido de eras pasadas y el registro de las bestias que acechan en la oscuridad."
-        </p>
+    <!-- Grid principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 xl:gap-6 flex-1 min-h-0 items-stretch">
+
+      <!-- ═══ IZQUIERDA (Info y Stats) ═══ -->
+      <div class="lg:col-span-7 flex flex-col gap-4 xl:gap-6 justify-between h-full py-1">
         
-        <router-link to="/bestiario" class="px-8 py-3 bg-secondary text-primary font-display text-xl rounded shadow-lg shadow-black/30 hover:bg-secondary/90 hover:scale-105 transition-all cursor-pointer border-2 border-accent inline-block mb-6">
-          Adentrarse en el Bestiario
-        </router-link>
-
-        <div v-if="campaign" class="mt-8 border-t border-secondary/30 pt-6 w-full max-w-sm mx-auto md:mx-0">
-          <h3 class="font-display text-xl text-secondary mb-2">Campaña Activa</h3>
-          <div class="bg-parchment p-4 rounded border border-stone-800/10 shadow-inner flex items-center justify-between">
-            <span class="font-bold text-stone-800">{{ campaign.name }}</span>
-            <span class="bg-stone-800 text-stone-200 text-sm px-2 py-1 rounded">Lvl {{ campaign.level }}</span>
-          </div>
+        <!-- Frase introductoria -->
+        <div class="bg-secondary/5 p-4 rounded-r-xl border-l-4 border-accent shadow-sm">
+          <p class="text-base xl:text-lg italic text-secondary/80 leading-relaxed">
+            "Estas páginas contienen el conocimiento prohibido de eras pasadas y el registro de las bestias que acechan en la oscuridad."
+          </p>
         </div>
 
-        <!-- Herramientas (Octava Parte) -->
-        <div class="w-full max-w-sm mx-auto md:mx-0 mt-4 flex flex-col sm:flex-row gap-4">
-          <CampaignClock class="w-full sm:w-1/2 mt-0" />
+        <!-- Ocupar el espacio con el Campaign Clock destacado -->
+        <div class="flex-1 flex items-center justify-center">
+          <CampaignClock class="w-full max-w-sm" />
         </div>
-        <CombatLog />
 
-        <!-- Stats (Octava Parte) -->
+        <!-- Stats Rápidos (Abajo) -->
         <StatsSkeleton v-if="isLoadingStats" />
-        <div v-else-if="!isErrorStats" class="flex gap-4 w-full max-w-sm mx-auto md:mx-0 mt-4">
-          <div class="flex-1 bg-parchment p-4 rounded border border-stone-800/10 shadow-inner text-center">
-            <h4 class="text-sm font-display text-secondary">Tot. Monstruos</h4>
-            <div class="text-2xl font-bold text-stone-800">{{ bestiaryStore.monsters.length }}</div>
+        <div v-else-if="!isErrorStats" class="grid grid-cols-2 gap-4 mt-auto">
+          <div class="bg-parchment p-4 md:p-5 rounded-xl border border-stone-800/10 shadow-md text-center hover:-translate-y-1 transition-transform relative group overflow-hidden">
+            <div class="absolute inset-0 bg-stone-800/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <h4 class="text-xs xl:text-sm font-display text-secondary tracking-wider uppercase mb-1 relative z-10">Tot. Monstruos</h4>
+            <div class="text-3xl xl:text-4xl font-bold text-stone-800 relative z-10">{{ bestiaryStore.monsters.length }}</div>
           </div>
-          <div class="flex-1 bg-parchment p-4 rounded border border-stone-800/10 shadow-inner text-center">
-            <h4 class="text-sm font-display text-secondary">Magia Alta (>= Lvl 5)</h4>
-            <div class="text-2xl font-bold text-stone-800">{{ spellStore.highLevelSpellsCount }}</div>
+          <div class="bg-parchment p-4 md:p-5 rounded-xl border border-stone-800/10 shadow-md text-center hover:-translate-y-1 transition-transform relative group overflow-hidden">
+            <div class="absolute inset-0 bg-stone-800/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <h4 class="text-xs xl:text-sm font-display text-secondary tracking-wider uppercase mb-1 relative z-10">Magia Alta (Lvl 5+)</h4>
+            <div class="text-3xl xl:text-4xl font-bold text-stone-800 relative z-10">{{ spellStore.highLevelSpellsCount }}</div>
           </div>
         </div>
+
       </div>
 
-      <!-- Columna Derecha: Imagen -->
-      <div class="w-full flex justify-center">
-        <div class="w-[93%] md:w-[88%] lg:w-[83%] max-w-[31rem] rounded-xl shadow-2xl shadow-black/50 border-4 border-secondary/40 relative group overflow-hidden bg-stone-900 flex-shrink-0">
-           <img src="/grimoire.png?v=2" alt="Arcane Grimoire Book" class="w-full h-auto object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105" />
-           <!-- Capa mágica oscura -->
-           <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-transparent to-transparent pointer-events-none"></div>
+      <!-- ═══ DERECHA (Actividad e interactividad) ═══ -->
+      <div class="lg:col-span-5 flex flex-col gap-4 xl:gap-6 h-full py-1">
+        
+        <!-- Campaña activa -->
+        <div v-if="campaign" class="bg-secondary/10 p-4 rounded-xl border border-secondary/20 shadow-inner shrink-0">
+          <h3 class="font-display text-sm xl:text-base text-secondary mb-2 flex items-center gap-2">
+            <i class="fas fa-map text-accent"></i> Campaña Activa
+          </h3>
+          <div class="bg-parchment p-3 rounded-lg border border-stone-800/10 flex items-center justify-between shadow-sm">
+            <span class="font-bold text-stone-800 text-base">{{ campaign.name }}</span>
+            <span class="bg-stone-800 text-accent font-bold px-2 py-0.5 rounded shadow-inner text-sm">Nivel {{ campaign.level }}</span>
+          </div>
         </div>
+
+        <!-- Log de Combate (Toma el resto del alto) -->
+        <CombatLog class="flex-1" />
+
       </div>
 
     </div>
