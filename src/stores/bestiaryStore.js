@@ -10,8 +10,6 @@ export const useBestiaryStore = defineStore('bestiary', {
     async fetchMonsters(page = 1, search = '', type = '') {
       try {
         const response = await getMonsters({ page, search, type, limit: 50 })
-        // Suponiendo que la API provee results dentro de un array paginado según modificaciones previas (Fase 9),
-        // guardaremos la colección completa para ser medida (lenght) por otros componentes.
         this.monsters = response.data.results || response.data
         this.isFetched = true
         return response.data

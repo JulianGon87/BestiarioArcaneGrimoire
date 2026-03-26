@@ -1,14 +1,11 @@
 <template>
   <div class="flex h-screen items-center justify-center p-4 lg:p-10">
-    <!-- The Book Container -->
     <div class="relative w-full max-w-[95vw] 2xl:max-w-[1600px] h-[95vh] flex shadow-2xl rounded-r-3xl rounded-l-lg overflow-hidden border-8 border-secondary/60 bg-secondary">
       
-      <!-- Spine / Sidebar -->
       <aside 
         class="bg-gradient-to-r from-stone-900 to-stone-800 text-stone-300 flex flex-col border-r-4 border-stone-950 shadow-inner z-30 transition-[width] duration-500 ease-in-out relative"
         :class="[isSidebarOpen ? 'w-64' : 'w-12']"
       >
-        <!-- Toggle Button -->
         <button 
           @click="toggleSidebar"
           class="absolute -right-10 top-4 bg-secondary text-primary p-2 rounded-r-md shadow-md border-y border-r border-accent/50 hover:bg-secondary/90 hover:text-accent transition-colors z-40 focus:outline-none"
@@ -61,15 +58,11 @@
         </div>
       </aside>
 
-      <!-- Pages / Main Content -->
       <main class="flex-1 bg-primary relative overflow-hidden flex flex-col w-full">
-        <!-- Paper Texture Overlay -->
         <div class="absolute inset-0 pointer-events-none opacity-40 mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')]"></div>
         
-        <!-- Binding Shadow (Left side) -->
         <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-black/40 to-transparent pointer-events-none z-20 transition-[width] duration-500" :class="{ 'w-4': !isSidebarOpen }"></div>
         
-        <!-- Content Area -->
         <div class="relative z-10 h-full p-2 transition-all duration-500">
            <div class="h-full border border-secondary/10 m-2 rounded-sm p-2 overflow-y-auto scrollbar-hide">
              <router-view v-slot="{ Component }">

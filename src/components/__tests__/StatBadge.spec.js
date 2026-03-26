@@ -11,7 +11,6 @@ describe('StatBadge.vue', () => {
       }
     })
 
-    // El texto "18" debe aparecer en el DOM del componente
     expect(wrapper.text()).toContain('18')
   })
 

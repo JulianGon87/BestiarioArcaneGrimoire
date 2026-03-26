@@ -22,7 +22,6 @@ const model = defineModel({ type: String, default: '' })
 const inputValue = ref(model.value)
 let timeoutId = null
 
-// Watcher en caso de que el modelo cambie externamente (ej: limpiar filtro)
 watch(model, (newVal) => {
   if (inputValue.value !== newVal) {
     inputValue.value = newVal

@@ -4,7 +4,6 @@
     :class="isExpanded ? 'border-accent shadow-accent/20 ring-1 ring-accent' : 'border-secondary/30 hover:border-secondary/60'"
     @click="toggleExpand"
   >
-    <!-- Botón interactivo: Libro o Varita -->
     <button 
       @click.stop="togglePrepared"
       class="absolute top-4 right-4 text-2xl transition-all duration-300 z-10 hover:scale-110"
@@ -16,7 +15,6 @@
       <i class="fas fa-book"></i>
     </button>
     
-    <!-- Info Base del Hechizo -->
     <div class="relative z-0 p-5 pb-4">
       <h3 class="text-xl font-display text-secondary mb-1 pr-10" :class="{ 'text-accent': isExpanded }">{{ spell.name }}</h3>
       <p class="text-sm text-emerald-500/80 mb-3 italic font-semibold">{{ spell.level }}</p>
@@ -28,7 +26,6 @@
         <span class="whitespace-pre-line">{{ spell.desc }}</span>
       </div>
       
-      <!-- Detalle expandido -->
       <div v-if="isExpanded" class="mt-4 pt-4 border-t border-stone-700/50 space-y-3 text-sm text-stone-400">
         
         <div class="flex gap-2 items-center text-stone-300">
@@ -67,7 +64,6 @@
 
     </div>
     
-    <!-- Indicador de expansión inferior -->
     <div 
       class="w-full h-8 flex items-center justify-center bg-stone-900/80 border-t border-stone-800 text-stone-500 transition-colors group-hover:text-amber-500/70"
     >
@@ -90,7 +86,6 @@ const props = defineProps({
 const characterStore = useCharacterStore()
 const isExpanded = ref(false)
 
-// Chequear reactivamente si el slug/id del hechizo está dentro del array persistido
 const isPrepared = computed(() => characterStore.preparedSpells.includes(props.spell.slug))
 
 const togglePrepared = () => {

@@ -1,6 +1,5 @@
 <template>
   <div class="bg-[#f4ebd8] p-6 rounded-md shadow-inner border border-[#d2b48c] font-body relative overflow-hidden mt-2">
-    <!-- Decoración de esquinas estilo pergamino antiguo -->
     <div class="absolute top-2 left-2 text-[#b08d55] opacity-50"><i class="fas fa-scroll text-2xl"></i></div>
     
     <h3 class="font-display text-2xl text-secondary mb-4 text-center border-b border-[#d2b48c] pb-2">Crónicas y Leyendas</h3>

@@ -8,7 +8,6 @@ export function useToast() {
     const id = nextId++
     toasts.value.push({ id, message, type })
     
-    // Auto-eliminar después de 3.5 segundos
     setTimeout(() => {
       removeToast(id)
     }, 3500)

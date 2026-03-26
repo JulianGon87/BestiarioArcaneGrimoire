@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest'
 import { getModifier, getFormattedModifier } from '../../utils/statModifiers.js'
 
 describe('statModifiers.js', () => {
-  // === getModifier() ===
   describe('getModifier()', () => {
     it('devuelve 4 para un score de 18 (Fuerza máxima base)', () => {
       expect(getModifier(18)).toBe(4)
@@ -35,7 +34,6 @@ describe('statModifiers.js', () => {
     })
   })
 
-  // === getFormattedModifier() ===
   describe('getFormattedModifier()', () => {
     it('añade el signo + para modificadores positivos', () => {
       expect(getFormattedModifier(18)).toBe('+4')

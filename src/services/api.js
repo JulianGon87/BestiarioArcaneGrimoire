@@ -13,11 +13,10 @@ export const api = {
       }
 
       const data = await response.json()
-      // Simulamos la estructura de Axios devoviendo la respuesta dentro de un obj "data"
       return { data }
     } catch (error) {
       addToast(error.message || 'Error de conexión', 'error')
-      throw error // Re-lanzamos para que la vista lo maneje
+      throw error 
     }
   }
 }

@@ -3,14 +3,12 @@
     
     <div v-if="monster" class="shrink-0 max-w-3xl w-full bg-parchment-light rounded-xl overflow-hidden shadow-2xl border-4" :class="borderColorClass">
       
-      <!-- Header Image -->
       <div class="h-64 w-full relative">
          <img :src="monster.image" :alt="monster.name" class="w-full h-full object-cover" />
          <div class="absolute inset-0 bg-gradient-to-t from-stone-900/90 to-transparent"></div>
          <h1 class="absolute bottom-4 left-6 text-4xl font-display text-primary text-shadow-gold tracking-wide">{{ monster.name }}</h1>
       </div>
 
-      <!-- Stats Card -->
       <div class="p-6 md:p-8 bg-parchment/50">
          <div class="flex flex-wrap items-center justify-between mb-6 pb-4 border-b border-stone-800/20">
             <TypeBadge :type="monster.type" class="text-xl" />
@@ -21,7 +19,6 @@
             </div>
          </div>
 
-         <!-- Sub-navegación -->
          <div class="flex gap-4 mb-4 border-b border-stone-800/20">
             <router-link 
                :to="{ name: 'monster-stats', params: { id: monster.id } }" 
@@ -40,7 +37,6 @@
             </router-link>
          </div>
 
-         <!-- Renderizado de Vistas Hijas -->
          <div class="mb-6 min-h-[160px]">
             <router-view :monster="monster" v-slot="{ Component }">
                <transition name="fade" mode="out-in">
@@ -92,7 +88,7 @@ const borderColorClass = computed(() => {
   if (type === 'bestia') return 'border-green-800'
   if (type === 'no-muerto' || type === 'nomuerto') return 'border-purple-800'
   
-  return 'border-secondary/40' // default
+  return 'border-secondary/40' 
 })
 
 const goBack = () => {

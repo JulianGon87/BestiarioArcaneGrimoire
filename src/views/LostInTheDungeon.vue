@@ -1,7 +1,6 @@
 <template>
   <div class="h-full w-full flex flex-col items-center justify-center p-8 text-center animate-fade-in">
     <div class="bg-parchment-light border-4 border-secondary/60 p-12 rounded-xl shadow-2xl max-w-2xl relative overflow-hidden">
-      <!-- Overlay texturas -->
       <div class="absolute inset-0 bg-stone-900/5 pointer-events-none mix-blend-multiply"></div>
       
       <i class="fas fa-dungeon text-7xl text-stone-800 mb-6 drop-shadow-md"></i>

@@ -7,19 +7,16 @@
       <p class="text-secondary/60 italic mt-2">Registro de criaturas conocidas</p>
     </header>
 
-    <!-- Barra de búsqueda y filtrado -->
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10 w-full z-20">
       <MonsterSearch v-model="searchQuery" />
       <MonsterFilter v-model="selectedType" />
     </div>
     
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
-      <!-- Loading Skeletons -->
       <template v-if="isLoading">
         <MonsterSkeleton v-for="n in 6" :key="n" />
       </template>
 
-      <!-- Mensaje de Error -->
       <template v-else-if="isError">
         <div class="col-span-full py-16 text-center border border-dashed border-red-900/40 rounded-lg bg-stone-900/40">
            <i class="fas fa-exclamation-triangle text-4xl text-red-500/40 mb-4 animate-pulse"></i>
@@ -28,7 +25,6 @@
         </div>
       </template>
 
-      <!-- Mensaje cuando no hay resultados (Búsqueda fallida) -->
       <template v-else-if="filteredMonsters.length === 0">
         <div class="col-span-full py-16 text-center border border-dashed border-secondary/30 rounded-lg bg-stone-900/40">
            <i class="fas fa-ghost text-4xl text-secondary/40 mb-4 animate-bounce"></i>
@@ -37,7 +33,6 @@
         </div>
       </template>
 
-      <!-- Monster Cards -->
       <template v-else>
         <MonsterCard 
           v-for="monster in filteredMonsters" 
@@ -48,7 +43,6 @@
       </template>
     </div>
 
-    <!-- Paginación Inferior -->
     <div v-if="!isLoading && !isError && filteredMonsters.length > 0" class="flex justify-between items-center pb-8 max-w-2xl mx-auto w-full">
       <button 
         @click="fetchData(currentPage - 1, searchQuery, selectedType)" 
@@ -71,7 +65,6 @@
       </button>
     </div>
 
-    <!-- Grimoire Modal -->
     <GrimoireModal 
       v-model:isOpen="isModalOpen" 
       :monster="selectedMonster" 

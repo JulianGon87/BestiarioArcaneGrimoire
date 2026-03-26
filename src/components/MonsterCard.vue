@@ -1,9 +1,7 @@
 <template>
   <div v-glow class="relative bg-primary border-2 border-secondary/30 rounded shadow-md font-body p-3 transition-all hover:-translate-y-1 hover:shadow-xl group overflow-hidden">
     
-    <!-- Card Content -->
     <div class="relative z-10 flex flex-col h-full">
-      <!-- Image Area -->
       <router-link :to="{ name: 'monster-stats', params: { id: monster.id } }" class="w-full h-40 rounded mb-4 overflow-hidden border border-secondary/30 bg-secondary/5 relative group-hover:sepia-[.3] transition-all block">
         <img 
           :src="monsterImage" 
@@ -14,7 +12,6 @@
         <div class="absolute inset-0 shadow-[inset_0_0_20px_rgba(62,39,35,0.3)] pointer-events-none"></div>
       </router-link>
   
-      <!-- Header -->
       <div class="mb-2">
         <router-link :to="{ name: 'monster-stats', params: { id: monster.id } }" class="block w-fit">
           <h3 class="text-xl font-display text-secondary leading-tight mb-1 hover:text-accent-dark group-hover:text-accent-dark transition-colors">{{ monster.name }}</h3>
@@ -22,10 +19,8 @@
         <TypeBadge :type="monster.type" />
       </div>
   
-      <!-- Description (Truncated) -->
       <p class="text-sm text-secondary/80 italic mb-4 line-clamp-2">{{ monster.description }}</p>
   
-      <!-- Stats Footer -->
       <div class="grid grid-cols-3 gap-2 mt-auto pt-4 border-t border-secondary/20 text-center font-bold text-secondary text-sm relative">
         <div class="flex flex-col items-center" title="Puntos de Golpe">
           <font-awesome-icon :icon="['fas', 'heart']" class="text-red-700/70 mb-1" />
@@ -40,7 +35,6 @@
           <span>CR {{ formatCR(monster.cr) }}</span>
         </div>
         
-        <!-- Book Button -->
         <button 
           @click.stop="$emit('open-grimoire', monster)"
           class="absolute -top-12 right-2 bg-accent text-secondary w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-accent/40 hover:shadow-xl transition-all border-2 border-secondary/30 z-20"
@@ -51,7 +45,6 @@
       </div>
     </div>
 
-    <!-- Decorative Corner (optional) -->
     <div class="absolute -bottom-6 -right-6 text-6xl text-secondary/5 rotate-12 group-hover:text-accent/10 transition-colors pointer-events-none font-display">
       ❧
     </div>
@@ -76,7 +69,7 @@ const monsterImage = computed(() => {
   if (props.monster.image) return props.monster.image
   
   const type = (props.monster.type || '').toLowerCase()
-  let style = 'identicon' // Fallback
+  let style = 'identicon' 
   
   if (type.includes('beast')) style = 'croodles'
   else if (type.includes('humanoid')) style = 'adventurer'
@@ -93,7 +86,6 @@ const monsterImage = computed(() => {
   else if (type.includes('aberration')) style = 'bottts-neutral'
   else if (type.includes('elemental')) style = 'shapes'
   
-  // Usamos el ID del monstruo como semilla para que siempre tenga el mismo avatar.
   return `https://api.dicebear.com/9.x/${style}/svg?seed=${props.monster.id}&backgroundColor=3e2723,2d1e18`
 })
 

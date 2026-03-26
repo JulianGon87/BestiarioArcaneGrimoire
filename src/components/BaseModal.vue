@@ -75,7 +75,7 @@ onUnmounted(() => {
   margin: 4px 0;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.5); /* Color Gold (secondary) */
+  background: rgba(212, 175, 55, 0.5); 
   border-radius: 4px;
   border: 2px solid transparent;
   background-clip: padding-box;

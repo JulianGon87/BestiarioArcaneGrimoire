@@ -1,12 +1,9 @@
 <template>
   <div class="p-6 lg:p-10 animate-fade-in flex flex-col h-full bg-primary overflow-hidden">
-    <!-- Header -->
     <div class="mb-6 flex-shrink-0">
       <h1 class="text-4xl lg:text-5xl font-display text-secondary drop-shadow-sm mb-4">Grimorio de Hechizos</h1>
       
-      <!-- Controles: Buscador -->
       <div class="flex flex-col md:flex-row gap-4 justify-between items-center bg-parchment p-4 rounded-xl shadow-md border border-stone-800/20">
-        <!-- Buscador -->
         <div class="relative w-full md:w-2/3 lg:w-1/2 flex items-center gap-4">
           <div class="relative flex-1">
             <input 
@@ -35,7 +32,6 @@
       </div>
     </div>
 
-    <!-- Lista -->
     <div class="flex-1 overflow-y-auto scrollbar-hide -mx-2 px-2">
       <div v-if="spellStore.spells.length === 0" class="flex flex-col items-center justify-center h-full opacity-50">
         <i class="fas fa-hat-wizard text-6xl text-secondary mb-4"></i>
@@ -87,12 +83,10 @@ const togglePreparedFilter = () => {
 const filteredSpells = computed(() => {
   let baseSpells = spellStore.spells
   
-  // Filtro de hechizos preparados
   if (showOnlyPrepared.value) {
     baseSpells = baseSpells.filter(s => characterStore.preparedSpells.includes(s.slug))
   }
 
-  // Filtro de búsqueda
   if (!searchQuery.value) return baseSpells
 
   const lowerQuery = searchQuery.value.toLowerCase()

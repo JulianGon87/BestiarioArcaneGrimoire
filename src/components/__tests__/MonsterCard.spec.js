@@ -2,14 +2,11 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import MonsterCard from '../MonsterCard.vue'
 
-// Stub vacío para la directiva personalizada v-glow (no disponible fuera de main.js)
 const vGlowStub = { mounted() {}, updated() {}, unmounted() {} }
 
-// Opciones globales reutilizables para todos los montajes del test
 const globalOptions = {
   stubs: {
     FontAwesomeIcon: true,
-    // RouterLink stub que renderiza sus hijos (slot) para que el texto sea accesible
     RouterLink: { template: '<a><slot /></a>' },
     TypeBadge: true
   },
@@ -18,7 +15,6 @@ const globalOptions = {
   }
 }
 
-// Objeto monstruo simulado (mock) mínimo para el test
 const mockMonster = {
   id: 'ancient-red-dragon',
   name: 'Ancient Red Dragon',
@@ -37,14 +33,11 @@ describe('MonsterCard.vue', () => {
       global: globalOptions
     })
 
-    // Buscar el botón que emite el evento de apertura del grimorio
     const bookButton = wrapper.find('button')
     expect(bookButton.exists()).toBe(true)
 
-    // Disparar el clic sobre el botón
     await bookButton.trigger('click')
 
-    // Verificar que el evento fue emitido con el objeto del monstruo
     const emitted = wrapper.emitted('open-grimoire')
     expect(emitted).toBeTruthy()
     expect(emitted).toHaveLength(1)
@@ -57,8 +50,6 @@ describe('MonsterCard.vue', () => {
       global: globalOptions
     })
 
-    // El nombre se encuentra dentro de un <router-link> stubado.
-    // Usamos html() que incluye el contenido de los slots de los stubs.
     expect(wrapper.html()).toContain('Ancient Red Dragon')
   })
 

@@ -10,7 +10,6 @@
     
     <template #body>
       <div v-if="monster" class="flex flex-col md:flex-row gap-5 items-stretch h-full">
-        <!-- Imagen -->
         <div class="w-full md:w-5/12 h-56 md:h-auto min-h-[220px] rounded-lg overflow-hidden border-2 border-secondary/30 relative shadow-inner group shrink-0">
           <img 
             :src="monster.image" 
@@ -20,16 +19,13 @@
           <div class="absolute inset-0 shadow-[inset_0_0_40px_rgba(62,39,35,0.6)] pointer-events-none"></div>
         </div>
         
-        <!-- Contenido y Botones -->
         <div class="flex-1 flex flex-col pt-1 md:pt-0">
-          <!-- Descripción -->
           <div class="prose prose-stone max-w-none text-secondary/90 leading-relaxed text-base md:text-lg mb-4 flex-1">
             <p class="first-letter:text-5xl first-letter:font-display first-letter:text-accent first-letter:float-left first-letter:mr-2 first-letter:mt-1 text-justify drop-shadow-sm">
               {{ monster.description }}
             </p>
           </div>
 
-          <!-- Botón de Acción -->
           <div class="flex justify-end pt-4 border-t border-secondary/20 mt-auto">
             <button 
               @click="addToTracker"
